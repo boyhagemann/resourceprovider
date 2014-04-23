@@ -22,6 +22,14 @@ Route::get('/news', function()
 	);
 });
 
+Route::options('/news', function()
+{
+	return array(
+        'contract' => 'newscreate',
+        'collection' => true,
+	);
+});
+
 Route::post('/views/{view}', function($view)
 {
 	try {
@@ -40,7 +48,8 @@ Route::get('/contracts/news', function()
 			'required' => true,
 		),
 		'news' => array(
-			'contract' => '12345news',
+			'contract' => '12345newscreate',
+            'collection' => true,
 			'required' => true,
 		),
 	);

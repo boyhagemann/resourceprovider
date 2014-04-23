@@ -25,7 +25,7 @@ Route::get('/news', function()
 Route::options('/news', function()
 {
 	return array(
-        'contract' => 'newscreate',
+        'contract' => '12345newscreate',
         'collection' => true,
 	);
 });

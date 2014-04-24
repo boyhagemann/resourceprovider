@@ -30,6 +30,13 @@ Route::options('/news', function()
 	);
 });
 
+Route::post('/views/form', function() {
+
+	// Build a form based on the input params
+
+	return View::make('form', Input::all());
+});
+
 Route::post('/views/{view}', function($view)
 {
 	try {
@@ -55,16 +62,24 @@ Route::get('/contracts/news', function()
 	);
 });
 
+Route::post('news', function() {
+	return 'resource!!';
+});
+
 Route::options('/news/create', function()
 {
 	return array(
-		'title' => array(
-			'contract' => 'string',
-			'required' => true,
-		),
-		'body' => array(
-			'contract' => 'text',
-			'required' => true,
+		'method' => 'POST',
+		'action' => URL::to('contracts/news'),
+		'elements' => array(
+			'title' => array(
+				'contract' => 'string',
+				'required' => true,
+			),
+			'body' => array(
+				'contract' => 'text',
+				'required' => true,
+			),
 		),
 	);
 });

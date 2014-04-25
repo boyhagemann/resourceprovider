@@ -11,16 +11,7 @@
 |
 */
 
-Route::get('/news', function()
-{
-	return array(
-		array(
-			'id' => 1,
-			'title' => 'Testtitel',
-			'body' => 'Body',
-		)
-	);
-});
+Route::resource('news', 'NewsController');
 
 Route::options('/news', function()
 {
@@ -47,42 +38,11 @@ Route::post('/views/{view}', function($view)
 	}
 });
 
-Route::get('/contracts/news', function()
-{
-	return array(
-		'title' => array(
-			'contract' => 'string',
-			'required' => true,
-		),
-		'news' => array(
-			'contract' => '12345newscreate',
-            'collection' => true,
-			'required' => true,
-		),
-	);
-});
+Route::get('/contracts/news', 'NewsController@indexContract');
+Route::options('/news/create', 'NewsController@createContract');
 
-Route::post('news', function() {
-	return 'resource!!';
-});
 
-Route::options('/news/create', function()
-{
-	return array(
-		'method' => 'POST',
-		'action' => URL::to('contracts/news'),
-		'elements' => array(
-			'title' => array(
-				'contract' => 'string',
-				'required' => true,
-			),
-			'body' => array(
-				'contract' => 'text',
-				'required' => true,
-			),
-		),
-	);
-});
+
 
 Route::get('/contracts/layout', function()
 {
@@ -101,3 +61,21 @@ Route::get('/contracts/layout', function()
 		),
 	);
 });
+
+Route::get('/contracts/form', function()
+{
+	return array(
+		'target' => array(
+			'contract' => 'string',
+			'help' => 'This is the data source where the collected form input is send to',
+			'required' => true,
+		),
+		'title' => array(
+			'contract' => 'string',
+			'help' => 'The title above the form',
+			'required' => true,
+		),
+	);
+});
+
+

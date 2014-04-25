@@ -1,6 +1,6 @@
 ## Install
 
-* install thru git
+* install like a standard laravel/laravel project
 * add a `.env.php` or `.env.local.php` file containing the following keys:
   - DB_HOST
   - DB_NAME

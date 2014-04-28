@@ -25,8 +25,6 @@ class NewsController extends BaseController
 	public function createContract()
 	{
 		return array(
-			'method' => 'POST',
-			'action' => 'http://localhost/marketplace/public/invoke/12345newsstore',
 			'elements' => array(
 				'title' => array(
 					'contract' => 'string',

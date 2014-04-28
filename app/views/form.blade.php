@@ -2,7 +2,7 @@
 
 {{ Form::open(array('url' => $action, 'method' => $method)) }}
 
-@foreach($elements as $name => $element)
+@foreach($config['elements'] as $name => $element)
 
 	{{ Form::text($name) }}
 

@@ -21,13 +21,6 @@ Route::options('/news', function()
 	);
 });
 
-Route::post('/views/form', function() {
-
-	// Build a form based on the input params
-
-	return View::make('form', Input::all());
-});
-
 Route::post('/views/{view}', function($view)
 {
 	try {
@@ -77,5 +70,6 @@ Route::get('/contracts/form', function()
 		),
 	);
 });
+
 
 

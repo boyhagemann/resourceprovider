@@ -21,6 +21,11 @@ Route::options('/news', function()
 	);
 });
 
+/**
+ *
+ * Resolve the view script with the input variables
+ *
+ */
 Route::post('/views/{view}', function($view)
 {
 	try {
@@ -31,29 +36,65 @@ Route::post('/views/{view}', function($view)
 	}
 });
 
+/**
+ *
+ * Get the variables needed to resolve the view
+ *
+ */
+Route::get('/views/layouts.default', function()
+{
+	return array(
+		'fields' => array(
+			'title' => array(
+				'label' => 'Title',
+				'help' => 'Give the page a title',
+				'required' => true,
+				'type' => 'string',
+			),
+			'content' => array(
+				'label' => 'Content',
+				'help' => 'Main content',
+				'required' => true,
+				'type' => 'templates',
+			),
+			'sidebar' => array(
+				'label' => 'Sidebar',
+				'help' => 'Add content to the sidebar',
+				'required' => true,
+				'type' => 'templates',
+			),
+		),
+	);
+});
+
+
+/**
+ *
+ * Get the variables needed to resolve the view
+ *
+ */
+Route::get('/views/{view}', function($view)
+{
+	$contents = file_get_contents(View::make($view)->getPath());
+	$pattern = '/{{{? \$([a-zA-Z0-9]+)/';
+
+	preg_match_all($pattern, $contents, $matches);
+
+	$vars = array();
+	foreach($matches[1] as $var) {
+		$vars[$var] = array(
+			'required' => true,
+		);
+	}
+	return $vars;
+});
+
+
 Route::get('/contracts/news', 'NewsController@indexContract');
 Route::options('/news/create', 'NewsController@createContract');
 
 
 
-
-Route::get('/contracts/layout', function()
-{
-	return array(
-		'title' => array(
-			'contract' => 'string',
-			'required' => true,
-		),
-		'content' => array(
-			'contract' => 'text',
-			'required' => true,
-		),
-		'sidebar' => array(
-			'contract' => 'text',
-			'required' => true,
-		),
-	);
-});
 
 Route::get('/contracts/form', function()
 {
@@ -71,5 +112,10 @@ Route::get('/contracts/form', function()
 	);
 });
 
+
+Route::post('texteditor', function() {
+
+	return '---' . Input::get('text') . '---';
+});
 
 
